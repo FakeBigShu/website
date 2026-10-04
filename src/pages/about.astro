@@ -1,4 +1,5 @@
 ---
+import craftImage from "@/assets/about/image.png";
 import { siteConfig } from "@/config/site";
 import { getProducts } from "@/data/products";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -47,6 +48,16 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
         <h2 class="text-balance font-serif text-3xl leading-[1.02] md:text-5xl">
           Sourcing from Quyang.
         </h2>
+
+        <img
+          src={craftImage.src}
+          width={craftImage.width}
+          height={craftImage.height}
+          alt="Gloved hands working stone with a hammer and chisel"
+          loading="lazy"
+          decoding="async"
+          class="mt-8 block h-auto w-full"
+        />
 
       </div>
 
