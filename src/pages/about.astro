@@ -1,5 +1,6 @@
 ---
-import craftImage from "@/assets/about/image.png";
+import { Image } from "astro:assets";
+import craftImage from "@/assets/about/stone-craftsmanship.webp";
 import { siteConfig } from "@/config/site";
 import { getProducts } from "@/data/products";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -48,16 +49,6 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
         <h2 class="text-balance font-serif text-3xl leading-[1.02] md:text-5xl">
           Sourcing from Quyang.
         </h2>
-
-        <img
-          src={craftImage.src}
-          width={craftImage.width}
-          height={craftImage.height}
-          alt="Gloved hands working stone with a hammer and chisel"
-          loading="lazy"
-          decoding="async"
-          class="mt-8 block h-auto w-full"
-        />
 
       </div>
 
@@ -133,7 +124,19 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
 
       <div class="mx-auto grid max-w-screen-xl gap-10 px-6 md:grid-cols-12 md:gap-16">
 
-        <div class="space-y-8 md:col-span-8 md:col-start-3">
+        <div class="md:col-span-5">
+          <Image
+            src={craftImage}
+            alt="Stone-carving illustration with gloved hands, a hammer, and a chisel"
+            widths={[400, 640, 1024]}
+            sizes="(min-width: 1280px) 480px, (min-width: 768px) 42vw, calc(100vw - 48px)"
+            loading="lazy"
+            decoding="async"
+            class="block h-auto w-full"
+          />
+        </div>
+
+        <div class="space-y-8 md:col-span-6 md:col-start-7 md:self-center">
 
           <p class="flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-faded">
 
