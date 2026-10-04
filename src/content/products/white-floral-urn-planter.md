@@ -30,13 +30,6 @@ images:
       - "../../assets/products/PL-0003/selected/IMG_4506-800w.webp"
       - "../../assets/products/PL-0003/selected/IMG_4506.webp"
   -
-    src: "../../assets/products/PL-0003/selected/IMG_4507.webp"
-    alt: "White Floral Urn Planter, carving and surface detail 2"
-    variants:
-      - "../../assets/products/PL-0003/selected/IMG_4507-400w.webp"
-      - "../../assets/products/PL-0003/selected/IMG_4507-800w.webp"
-      - "../../assets/products/PL-0003/selected/IMG_4507.webp"
-  -
     src: "../../assets/products/PL-0003/selected/IMG_4508.webp"
     alt: "White Floral Urn Planter, carving and surface detail 3"
     variants:
