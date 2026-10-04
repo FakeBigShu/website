@@ -19,7 +19,7 @@ const featuredCards = [
   ...products.filter((product) => !homepageSelection.includes(product.sku)),
 ].slice(0, 6);
 const hero = products.find((product) => product.sku === "AS-0005") ?? featured[0];
-const solo = featured.find((product) => product.sku === "CS-0019") ?? hero;
+const solo = featured.find((product) => product.sku === "CS-0019") ?? featured[0];
 if (!hero || !solo) {
   throw new Error("The homepage requires a published featured product.");
 }
