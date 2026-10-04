@@ -9,6 +9,10 @@ import { getProducts } from "@/data/products.ts";
 
 const products = await getProducts();
 const featured = products.filter((product) => product.featured);
+const featuredCards = [
+  ...featured,
+  ...products.filter((product) => !product.featured),
+].slice(0, 6);
 const hero = featured[0];
 const solo = featured.find((product) => product.sku === "CS-0019") ?? hero;
 if (!hero || !solo) {
@@ -273,7 +277,7 @@ if (!hero || !solo) {
         class="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3"
       >
 
-        {featured.map((product) => (
+        {featuredCards.map((product) => (
           <ProductCard product={product} />
         ))}
 
@@ -382,7 +386,7 @@ if (!hero || !solo) {
               href={`/products/${solo.slug}/`}
               class="inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--color-base)] transition-colors hover:bg-accent"
             >
-              View the piece →
+              View the detail →
             </a>
 
           </div>
