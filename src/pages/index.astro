@@ -39,13 +39,13 @@ if (!hero || !solo) {
     <section class="relative overflow-hidden bg-base">
 
       <!-- One prepared image preserves the full product without creating another crop. -->
-      <div class="block aspect-[4/3] w-full md:absolute md:inset-0 md:aspect-auto">
+      <div class="hero-image block aspect-[4/3] w-full bg-paper p-8 md:absolute md:inset-y-0 md:right-0 md:aspect-auto md:w-[56%]">
         <ProductImage
           image={hero.images[0]}
-          sizes="(min-width: 768px) 60vw, 100vw"
+          sizes="(min-width: 768px) 56vw, 100vw"
           loading="eager"
           fetchpriority="high"
-          class="h-full w-full object-contain md:object-right"
+          class="h-full w-full object-contain object-center"
         />
       </div>
 
@@ -118,28 +118,10 @@ if (!hero || !solo) {
         class="relative hidden h-[88vh] max-h-[920px] min-h-[640px] w-full md:block"
       >
 
-        <!-- Left gradient -->
-
-        <div
-          aria-hidden="true"
-          class="absolute inset-0"
-          style="background: linear-gradient(90deg, var(--color-base) 0%, var(--color-base) 25%, color-mix(in oklab, var(--color-base) 75%, transparent) 40%, color-mix(in oklab, var(--color-base) 25%, transparent) 58%, transparent 78%)"
-        ></div>
-
-
-        <!-- Bottom gradient -->
-
-        <div
-          aria-hidden="true"
-          class="absolute inset-x-0 bottom-0 h-48"
-          style="background: linear-gradient(180deg, transparent, var(--color-base))"
-        ></div>
-
-
         <!-- Content container -->
 
         <div
-          class="relative mx-auto flex h-full max-w-screen-xl items-center px-6"
+          class="hero-content relative flex h-full w-[44%] items-center px-6"
         >
 
           <div class="max-w-[480px] space-y-8">
@@ -506,3 +488,10 @@ if (!hero || !solo) {
 
   </main>
 </BaseLayout>
+
+<style>
+  @media (min-width: 768px) {
+    .hero-image { padding: clamp(64px, 9vh, 96px) clamp(24px, 4vw, 80px); }
+    .hero-content { padding-left: clamp(24px, 4.8vw, 96px); padding-right: clamp(24px, 3vw, 56px); }
+  }
+</style>
