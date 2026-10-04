@@ -9,9 +9,14 @@ import { getProducts } from "@/data/products.ts";
 
 const products = await getProducts();
 const featured = products.filter((product) => product.featured);
+const homepageSelection = ["AS-0005", "GF-0016", "PL-0031", "CS-0064", "AS-0021", "CS-0116"];
+const selectedCards = homepageSelection.flatMap((sku) => {
+  const product = products.find((product) => product.sku === sku);
+  return product ? [product] : [];
+});
 const featuredCards = [
-  ...featured,
-  ...products.filter((product) => !product.featured),
+  ...selectedCards,
+  ...products.filter((product) => !homepageSelection.includes(product.sku)),
 ].slice(0, 6);
 const hero = featured[0];
 const solo = featured.find((product) => product.sku === "CS-0019") ?? hero;
