@@ -92,9 +92,16 @@ export function hasDistinctProductSubcategory(
   if (!product.subcategory?.trim()) return false;
   const normalize = (value: string) =>
     comparableProductText(value, product)
-      .replace(/\b(statue|planter|sphere|fountain|sculpture|column|fireplace|bath)s\b/g, "$1")
-      .replace(/\bbenches\b/g, "bench");
-  return normalize(product.subcategory) !== normalize(productDisplayName(product));
+      .replace(/\b(statue|planter|sphere|fountain|sculpture|column|fireplace|bath|basin|lantern|table|bust)s\b/g, "$1")
+      .replace(/\bbenches\b/g, "bench")
+      .replace(/\bstatue\b/g, "sculpture")
+      .replace(/\btiered\b/g, "tier")
+      .match(/[a-z0-9]+/g) ?? [];
+  const nameWords = new Set(normalize(productDisplayName(product)));
+  const subcategoryWords = normalize(product.subcategory);
+  // A category adds no information if all its words already occur in the name.
+  return subcategoryWords.length > 0 &&
+    !subcategoryWords.every((word) => nameWords.has(word));
 }
 
 /** Keep unverified values in content, but do not present them as specifications. */
