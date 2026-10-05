@@ -239,20 +239,10 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
               href={`mailto:${siteConfig.emails.studio}`}
               class="inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-line transition-colors hover:bg-paper"
             >
-              Contact Lumavia
+              Contact Lumavia at <span class="normal-case">{siteConfig.emails.studio}</span>
             </a>
 
           </div>
-
-          <p class="mt-4 text-sm text-faded md:text-right">
-            Email us directly at
-            <a
-              href={`mailto:${siteConfig.emails.studio}`}
-              class="text-ink underline underline-offset-4 hover:text-accent"
-            >
-              {siteConfig.emails.studio}
-            </a>
-          </p>
         </div>
 
       </div>
