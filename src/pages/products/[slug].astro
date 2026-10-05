@@ -5,7 +5,13 @@ import { pageUrl } from "@/utils/urls";
 import ProductImage from "@/components/ProductImage.astro";
 import ProductCard from "@/components/ProductCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { confirmedValue, getProducts, getRelated } from "@/data/products.js";
+import {
+  confirmedValue,
+  getProducts,
+  getRelated,
+  hasMeaningfulProductDescription,
+  productDisplayName,
+} from "@/data/products.js";
 
 export async function getStaticPaths() {
   const products = await getProducts();
@@ -20,7 +26,13 @@ export async function getStaticPaths() {
 }
 
 const { product, related } = Astro.props;
-const quoteParams = new URLSearchParams({ product: product.name, slug: product.slug, sku: product.sku });
+const displayName = productDisplayName(product);
+const showShortDescription = hasMeaningfulProductDescription(
+  product,
+  product.shortDescription,
+);
+const showBody = hasMeaningfulProductDescription(product, product.entry.body);
+const quoteParams = new URLSearchParams({ product: displayName, slug: product.slug, sku: product.sku });
 const [contactPage, contactAnchor] = siteConfig.contactPath.split("#");
 const quoteHref = `${contactPage}?${quoteParams}#${contactAnchor}`;
 
@@ -38,8 +50,8 @@ const specifications = [
 ---
 
 <BaseLayout
-  title={`${product.name} — ${siteConfig.brandName}`}
-  description={product.shortDescription}
+  title={`${displayName} — ${siteConfig.brandName}`}
+  description={showShortDescription ? product.shortDescription : undefined}
   image={product.images[0].src}
 >
   <main id="main-content">
@@ -50,7 +62,7 @@ const specifications = [
       >
         <a href="/catalog/" class="hover:text-ink">Catalogue</a>
         <span aria-hidden="true">/</span>
-        <span class="text-ink" aria-current="page">{product.name}</span>
+        <span class="text-ink" aria-current="page">{displayName}</span>
       </nav>
     </div>
 
@@ -128,7 +140,7 @@ const specifications = [
             <h1
               class="text-balance font-serif text-4xl leading-tight md:text-5xl"
             >
-              {product.name}
+              {displayName}
             </h1>
 
             <p class="text-xs tracking-widest text-faded">SKU: {product.sku}</p>
@@ -136,7 +148,12 @@ const specifications = [
           </div>
 
           <div class="space-y-6">
-            <ProductBody product={product} class="max-w-[44ch] text-pretty leading-relaxed text-faded" />
+            {showBody && (
+              <ProductBody
+                product={product}
+                class="max-w-[44ch] text-pretty leading-relaxed text-faded"
+              />
+            )}
 
             {specifications.length > 0 && <dl class="space-y-3">
               {specifications.map(([label, value]) => (
@@ -198,8 +215,8 @@ const specifications = [
       set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Product",
-        name: product.name,
-        description: product.shortDescription,
+        name: displayName,
+        ...(showShortDescription ? { description: product.shortDescription } : {}),
         image: product.images.map(
           (image) => new URL(image.src.src, Astro.site ?? Astro.url.origin).href,
         ),
