@@ -173,25 +173,14 @@ const specifications = [
 
           <a
             href={quoteHref}
-            class="block text-center w-full rounded-full bg-ink py-4 text-sm font-medium text-[var(--color-base)] ring-1 ring-ink transition-all hover:bg-accent hover:ring-accent active:scale-[0.98]"
+            class="block w-full rounded-full bg-ink px-6 py-4 text-center text-sm font-medium text-[var(--color-base)] ring-1 ring-ink transition-all hover:bg-accent hover:ring-accent active:scale-[0.98]"
           >
-            Request a Quote
+            Request a Quote at {siteConfig.emails.studio}
           </a>
 
-          <div class="space-y-2">
-            <p class="text-[11px] uppercase tracking-widest text-faded">
-              Product availability and shipping details available on request.
-            </p>
-            <p class="text-sm text-faded">
-              Request a Quote at
-              <a
-                href={`mailto:${siteConfig.emails.studio}`}
-                class="text-ink underline underline-offset-4 hover:text-accent"
-              >
-                {siteConfig.emails.studio}
-              </a>
-            </p>
-          </div>
+          <p class="text-[11px] uppercase tracking-widest text-faded">
+            Product availability and shipping details available on request.
+          </p>
         </div>
       </section>
 
