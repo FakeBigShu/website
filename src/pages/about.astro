@@ -225,11 +225,11 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
 
 
         <div class="md:col-span-5 md:justify-self-end">
-          <div class="flex flex-col gap-4 sm:flex-row">
+          <div class="flex flex-col gap-4">
 
             <a
               href="/catalog/"
-              class="inline-flex items-center justify-center gap-3 rounded-full bg-ink px-7 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--color-base)] transition-colors hover:bg-accent"
+              class="inline-flex items-center justify-center gap-3 rounded-full bg-ink px-7 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--color-base)] transition-colors hover:bg-accent sm:whitespace-nowrap"
             >
               Explore the Catalogue →
             </a>
@@ -237,9 +237,10 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
             <a
               data-inquiry-email
               href={`mailto:${siteConfig.emails.studio}`}
-              class="inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-line transition-colors hover:bg-paper"
+              class="inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-line transition-colors hover:bg-paper sm:whitespace-nowrap"
             >
-              Contact Lumavia at <span class="normal-case">{siteConfig.emails.studio}</span>
+              <span>Contact Lumavia at</span>
+              <span class="normal-case tracking-normal">{siteConfig.emails.studio}</span>
             </a>
 
           </div>
