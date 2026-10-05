@@ -33,9 +33,11 @@ const showShortDescription = hasMeaningfulProductDescription(
   product.shortDescription,
 );
 const showBody = hasMeaningfulProductDescription(product, product.entry.body);
-const quoteParams = new URLSearchParams({ product: displayName, slug: product.slug, sku: product.sku });
-const [contactPage, contactAnchor] = siteConfig.contactPath.split("#");
-const quoteHref = `${contactPage}?${quoteParams}#${contactAnchor}`;
+const quoteParams = new URLSearchParams({
+  subject: `Request a Quote: ${displayName}`,
+  body: `Product Name: ${displayName}\nSKU: ${product.sku}\nProduct Slug: ${product.slug}\n\nPlease share your quantity, destination, and project requirements:\n`,
+});
+const quoteHref = `mailto:${siteConfig.emails.studio}?${quoteParams.toString().replace(/\+/g, "%20")}`;
 
 const productUrl = pageUrl(
   `/products/${product.slug}/`,
@@ -171,9 +173,9 @@ const specifications = [
 
           <a
             href={quoteHref}
-            class="block text-center w-full rounded-full bg-ink py-4 text-sm font-medium text-[var(--color-base)] ring-1 ring-ink transition-all hover:bg-accent hover:ring-accent active:scale-[0.98]"
+            class="quote-cta block w-full rounded-full bg-ink px-6 py-4 text-center text-sm font-medium text-[var(--color-base)] ring-1 ring-ink transition-all hover:bg-accent hover:ring-accent active:scale-[0.98]"
           >
-            Request a Quote
+            Request a Quote at {siteConfig.emails.studio}
           </a>
 
           <p class="text-[11px] uppercase tracking-widest text-faded">
@@ -231,6 +233,13 @@ const specifications = [
         url: productUrl,
       })}
     ></script>
+
+    <style>
+      .quote-cta::selection {
+        background: var(--color-base);
+        color: var(--color-ink);
+      }
+    </style>
 
     <!-- Product Gallery Interaction -->
     <script is:inline>
