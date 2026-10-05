@@ -178,9 +178,20 @@ const specifications = [
             Request a Quote
           </a>
 
-          <p class="text-[11px] uppercase tracking-widest text-faded">
-            Product availability and shipping details available on request.
-          </p>
+          <div class="space-y-2">
+            <p class="text-[11px] uppercase tracking-widest text-faded">
+              Product availability and shipping details available on request.
+            </p>
+            <p class="text-sm text-faded">
+              Or email us directly at
+              <a
+                href={`mailto:${siteConfig.emails.studio}`}
+                class="text-ink underline underline-offset-4 hover:text-accent"
+              >
+                {siteConfig.emails.studio}
+              </a>
+            </p>
+          </div>
         </div>
       </section>
 
