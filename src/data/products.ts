@@ -2,6 +2,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 type ProductEntry = CollectionEntry<"products">;
 export type Product = ProductEntry["data"] & { slug: string; entry: ProductEntry };
+type ProductIdentity = Pick<Product, "name" | "sku">;
 
 function slugFromEntry(entry: ProductEntry): string {
   return entry.id.replace(/\.(md|mdx)$/, "");
@@ -9,6 +10,33 @@ function slugFromEntry(entry: ProductEntry): string {
 
 function byOrderThenName(a: Product, b: Product): number {
   return a.order - b.order || a.name.localeCompare(b.name);
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\function byOrderThenName(a: Product, b: Product): number {
+  return a.order - b.order || a.name.localeCompare(b.name);
+}
+");
+}
+
+function skuSuffixPattern(sku: string): RegExp {
+  const flexibleSku = sku
+    .split("-")
+    .map(escapeRegExp)
+    .join("[\\s-]*");
+
+  return new RegExp("(?:\\s*[-–—|/]\\s*)?" + flexibleSku + "\\s*$", "i");
+}
+
+function comparableProductText(value: string, product: ProductIdentity): string {
+  return value
+    .trim()
+    .replace(/[.!?…,:;]+$/g, "")
+    .trim()
+    .replace(skuSuffixPattern(product.sku), "")
+    .trim()
+    .replace(/\\s+/g, " ")
+    .toLowerCase();
 }
 
 export async function getProducts(): Promise<Product[]> {
@@ -42,6 +70,26 @@ export function getProductFilters(products: Product[]): {
   return {
     categories: [...new Set(products.map((product) => product.category))],
   };
+}
+
+export function productDisplayName(product: ProductIdentity): string {
+  const displayName = product.name
+    .replace(skuSuffixPattern(product.sku), "")
+    .trim();
+
+  return displayName || product.name.trim();
+}
+
+export function hasMeaningfulProductDescription(
+  product: ProductIdentity,
+  value: string | undefined,
+): boolean {
+  if (!value?.trim()) return false;
+
+  return (
+    comparableProductText(value, product) !==
+    comparableProductText(productDisplayName(product), product)
+  );
 }
 
 /** Keep unverified values in content, but do not present them as specifications. */
