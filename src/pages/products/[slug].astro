@@ -10,6 +10,7 @@ import {
   getProducts,
   getRelated,
   hasMeaningfulProductDescription,
+  hasDistinctProductSubcategory,
   productDisplayName,
 } from "@/data/products.js";
 
@@ -144,7 +145,7 @@ const specifications = [
             </h1>
 
             <p class="text-xs tracking-widest text-faded">SKU: {product.sku}</p>
-            {product.subcategory && <p class="text-sm text-faded">{product.subcategory}</p>}
+            {hasDistinctProductSubcategory(product) && <p class="text-sm text-faded">{product.subcategory}</p>}
           </div>
 
           <div class="space-y-6">
