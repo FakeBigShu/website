@@ -4,6 +4,7 @@ import ProductImage from "@/components/ProductImage.astro";
 import {
   confirmedValue,
   hasMeaningfulProductDescription,
+  hasDistinctProductSubcategory,
   productDisplayName,
   type Product,
 } from "@/data/products";
@@ -45,7 +46,7 @@ const showShortDescription = hasMeaningfulProductDescription(
     <div>
       <h2 class="text-sm font-medium">{displayName}</h2>
       <p class="text-xs text-faded">SKU: {product.sku}</p>
-      {product.subcategory && (
+      {hasDistinctProductSubcategory(product) && (
         <p class="text-xs text-faded">{product.subcategory}</p>
       )}
       {showShortDescription && (

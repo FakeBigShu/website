@@ -86,6 +86,17 @@ export function hasMeaningfulProductDescription(
   );
 }
 
+export function hasDistinctProductSubcategory(
+  product: ProductIdentity & { subcategory?: string },
+): boolean {
+  if (!product.subcategory?.trim()) return false;
+  const normalize = (value: string) =>
+    comparableProductText(value, product)
+      .replace(/\b(statue|planter|sphere|fountain|sculpture|column|fireplace|bath)s\b/g, "$1")
+      .replace(/\bbenches\b/g, "bench");
+  return normalize(product.subcategory) !== normalize(productDisplayName(product));
+}
+
 /** Keep unverified values in content, but do not present them as specifications. */
 export function confirmedValue(value: string | undefined): string | undefined {
   return value && value.trim().toLowerCase() !== "to be confirmed" ? value : undefined;
