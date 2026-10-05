@@ -99,9 +99,9 @@ export function hasDistinctProductSubcategory(
       .match(/[a-z0-9]+/g) ?? [];
   const nameWords = new Set(normalize(productDisplayName(product)));
   const subcategoryWords = normalize(product.subcategory);
-  // A category adds no information if all its words already occur in the name.
+  // Hide a subcategory that repeats the named product type, even with a broader qualifier.
   return subcategoryWords.length > 0 &&
-    !subcategoryWords.every((word) => nameWords.has(word));
+    !subcategoryWords.some((word) => nameWords.has(word));
 }
 
 /** Keep unverified values in content, but do not present them as specifications. */
