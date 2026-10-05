@@ -33,9 +33,11 @@ const showShortDescription = hasMeaningfulProductDescription(
   product.shortDescription,
 );
 const showBody = hasMeaningfulProductDescription(product, product.entry.body);
-const quoteParams = new URLSearchParams({ product: displayName, slug: product.slug, sku: product.sku });
-const [contactPage, contactAnchor] = siteConfig.contactPath.split("#");
-const quoteHref = `${contactPage}?${quoteParams}#${contactAnchor}`;
+const quoteParams = new URLSearchParams({
+  subject: `Request a Quote: ${displayName}`,
+  body: `Product Name: ${displayName}\nSKU: ${product.sku}\nProduct Slug: ${product.slug}\n\nPlease share your quantity, destination, and project requirements:\n`,
+});
+const quoteHref = `mailto:${siteConfig.emails.studio}?${quoteParams.toString().replace(/\+/g, "%20")}`;
 
 const productUrl = pageUrl(
   `/products/${product.slug}/`,
