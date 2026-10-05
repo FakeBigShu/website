@@ -13,10 +13,7 @@ function byOrderThenName(a: Product, b: Product): number {
 }
 
 function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\function byOrderThenName(a: Product, b: Product): number {
-  return a.order - b.order || a.name.localeCompare(b.name);
-}
-");
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function skuSuffixPattern(sku: string): RegExp {
@@ -35,7 +32,7 @@ function comparableProductText(value: string, product: ProductIdentity): string 
     .trim()
     .replace(skuSuffixPattern(product.sku), "")
     .trim()
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .toLowerCase();
 }
 
@@ -73,10 +70,7 @@ export function getProductFilters(products: Product[]): {
 }
 
 export function productDisplayName(product: ProductIdentity): string {
-  const displayName = product.name
-    .replace(skuSuffixPattern(product.sku), "")
-    .trim();
-
+  const displayName = product.name.replace(skuSuffixPattern(product.sku), "").trim();
   return displayName || product.name.trim();
 }
 
