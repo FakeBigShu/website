@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import craftImage from "@/assets/about/stone-craftsmanship.webp";
+import showroomImage from "@/assets/about/暖光下的极简石材展厅入口.webp";
 import { siteConfig } from "@/config/site";
 import { getProducts } from "@/data/products";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -37,6 +38,20 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
 
     </section>
 
+
+    <figure class="mx-auto max-w-screen-xl px-6">
+      <Image
+        src={showroomImage}
+        alt="Concept illustration of a Lumavia Stone showroom entrance in warm light"
+        widths={[640, 1024, 1280, 1672]}
+        sizes="(min-width: 1280px) 1232px, calc(100vw - 48px)"
+        format="webp"
+        loading="eager"
+        decoding="async"
+        class="block h-auto w-full"
+      />
+      <figcaption class="mt-3 text-xs text-faded">AI-generated brand concept illustration.</figcaption>
+    </figure>
 
     <section class="mx-auto mt-12 grid max-w-screen-xl gap-10 px-6 md:mt-16 md:grid-cols-12 md:gap-16">
 
