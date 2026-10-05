@@ -173,7 +173,7 @@ const specifications = [
 
           <a
             href={quoteHref}
-            class="block w-full rounded-full bg-ink px-6 py-4 text-center text-sm font-medium text-[var(--color-base)] ring-1 ring-ink transition-all hover:bg-accent hover:ring-accent active:scale-[0.98]"
+            class="quote-cta block w-full rounded-full bg-ink px-6 py-4 text-center text-sm font-medium text-[var(--color-base)] ring-1 ring-ink transition-all hover:bg-accent hover:ring-accent active:scale-[0.98]"
           >
             Request a Quote at {siteConfig.emails.studio}
           </a>
@@ -233,6 +233,13 @@ const specifications = [
         url: productUrl,
       })}
     ></script>
+
+    <style>
+      .quote-cta::selection {
+        background: var(--color-base);
+        color: var(--color-ink);
+      }
+    </style>
 
     <!-- Product Gallery Interaction -->
     <script is:inline>
