@@ -211,6 +211,16 @@ const specifications = [
       </section>
     </div>
 
+    <div class="mobile-quote-bar">
+      <a
+        href={quoteHref}
+        aria-label={`Get a Quote for ${displayName}, SKU ${product.sku}`}
+        class="quote-cta block w-full rounded-full bg-ink px-6 py-3.5 text-center text-sm font-medium text-[var(--color-base)] transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+      >
+        Get a Quote
+      </a>
+    </div>
+
     <!-- Product Structured Data -->
     <script
       is:inline
@@ -235,6 +245,37 @@ const specifications = [
     ></script>
 
     <style>
+      .mobile-quote-bar {
+        display: none;
+      }
+
+      @media (max-width: 47.999rem) {
+        .mobile-quote-bar {
+          position: fixed;
+          inset: auto 0 0;
+          z-index: 40;
+          display: block;
+          border-top: 1px solid var(--color-line);
+          background: var(--color-base);
+          padding: 1rem max(1.5rem, env(safe-area-inset-right))
+            calc(1rem + env(safe-area-inset-bottom))
+            max(1.5rem, env(safe-area-inset-left));
+        }
+
+        .mobile-quote-bar a {
+          min-height: 3rem;
+        }
+
+        /* Reserve room after the footer and keep focused links above the bar. */
+        :global(body:has(.mobile-quote-bar)) {
+          padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+        }
+
+        :global(html:has(.mobile-quote-bar)) {
+          scroll-padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+        }
+      }
+
       .quote-cta::selection {
         background: var(--color-base);
         color: var(--color-ink);
