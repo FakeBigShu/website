@@ -32,6 +32,9 @@ const showShortDescription = hasMeaningfulProductDescription(
   product,
   product.shortDescription,
 );
+const metaDescription = showShortDescription
+  ? product.shortDescription.trim()
+  : `View ${displayName} (SKU ${product.sku}) in Lumavia Stone's ${product.category} catalogue. Contact us for product details and a quote.`;
 const showBody = hasMeaningfulProductDescription(product, product.entry.body);
 const quoteParams = new URLSearchParams({
   subject: `Request a Quote: ${displayName}`,
@@ -54,7 +57,7 @@ const specifications = [
 
 <BaseLayout
   title={`${displayName} — ${siteConfig.brandName}`}
-  description={showShortDescription ? product.shortDescription : undefined}
+  description={metaDescription}
   image={product.images[0].src}
 >
   <main id="main-content">
