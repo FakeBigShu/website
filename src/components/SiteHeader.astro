@@ -68,6 +68,15 @@ const navItems = siteConfig.navigation;
       <a href={item.href} aria-current={currentState(item.href)}>{item.label}</a>
     ))}
   </div>
+  <!-- Run while parsing, before first paint: removing this row after paint shifts page content. -->
+  <script is:inline>
+    if (
+      typeof HTMLDialogElement !== "undefined" &&
+      typeof HTMLDialogElement.prototype.showModal === "function"
+    ) {
+      document.querySelector("[data-mobile-fallback]")?.setAttribute("hidden", "");
+    }
+  </script>
 </nav>
 
 
