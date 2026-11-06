@@ -3,10 +3,12 @@ import { Image } from "astro:assets";
 import craftImage from "@/assets/about/stone-craftsmanship.webp";
 import showroomImage from "@/assets/about/暖光下的极简石材展厅入口.webp";
 import { siteConfig } from "@/config/site";
-import { getProducts } from "@/data/products";
+import { getProducts, productDisplayName } from "@/data/products";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 const products = await getProducts();
-const inquiryProducts = products.map(({ name, slug, sku }) => ({ name, slug, sku }));
+const inquiryProducts = products.map((product) => ({
+  name: productDisplayName(product), slug: product.slug, sku: product.sku,
+}));
 const socialProduct = products.find(({ sku }) => sku === "GF-0001");
 ---
 
@@ -14,7 +16,7 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
   title={`About — ${siteConfig.brandName}`}
   description={`${siteConfig.brandName} is a Quyang-based natural stone sourcing and product supply brand for international buyers, with a focus on garden, landscape and architectural products.`}
   image={socialProduct?.images[0].src}
-  imageAlt={socialProduct ? `${siteConfig.brandName} product: ${socialProduct.name}` : undefined}
+  imageAlt={socialProduct ? `${siteConfig.brandName} product: ${productDisplayName(socialProduct)}` : undefined}
 >
   <main id="main-content">
 
@@ -180,7 +182,7 @@ const socialProduct = products.find(({ sku }) => sku === "GF-0001");
 
             <p>
               The current catalogue presents planters, garden fountains,
-              spheres, animal statues, and stone benches.
+              animal statues, and custom stonework.
             </p>
 
           </div>

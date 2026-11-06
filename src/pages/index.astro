@@ -5,7 +5,7 @@ import { pageUrl } from "@/utils/urls";
 import ProductImage from "@/components/ProductImage.astro";
 import ProductCard from "@/components/ProductCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getProducts } from "@/data/products.ts";
+import { getProducts, hasMeaningfulProductDescription, productDisplayName } from "@/data/products.ts";
 
 const products = await getProducts();
 const featured = products.filter((product) => product.featured);
@@ -198,7 +198,7 @@ if (!hero || !solo) {
         >
 
           <span>
-            {hero.name}
+            {productDisplayName(hero)}
           </span>
 
           <span class="text-faded">
@@ -332,11 +332,13 @@ if (!hero || !solo) {
             <h2
               class="text-balance font-serif text-4xl leading-[1.02] md:text-5xl"
             >
-              {solo.name}
+              {productDisplayName(solo)}
             </h2>
 
 
-            <ProductBody product={solo} class="text-pretty leading-relaxed text-faded" />
+            {hasMeaningfulProductDescription(solo, solo.entry.body) && (
+              <ProductBody product={solo} class="text-pretty leading-relaxed text-faded" />
+            )}
 
 
             <dl
