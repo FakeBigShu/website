@@ -1,11 +1,12 @@
 ---
-import { Image } from "astro:assets";
+import { getImage, Image } from "astro:assets";
 import craftImage from "@/assets/about/stone-craftsmanship.webp";
 import showroomImage from "@/assets/about/暖光下的极简石材展厅入口.webp";
 import { siteConfig } from "@/config/site";
 import { getProducts, productDisplayName } from "@/data/products";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 const products = await getProducts();
+const showroomSocialImage = await getImage({ src: showroomImage, width: 1280, format: "webp" });
 const inquiryProducts = products.map((product) => ({
   name: productDisplayName(product), slug: product.slug, sku: product.sku,
 }));
@@ -14,7 +15,7 @@ const inquiryProducts = products.map((product) => ({
 <BaseLayout
   title={`About — ${siteConfig.brandName}`}
   description={`${siteConfig.brandName} is a Quyang-based natural stone sourcing and product supply brand for international buyers, with a focus on garden, landscape and architectural products.`}
-  image={showroomImage}
+  image={showroomSocialImage.src}
   imageAlt="Concept illustration of a Lumavia Stone showroom entrance in warm light"
 >
   <main id="main-content">
