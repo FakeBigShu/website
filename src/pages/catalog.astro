@@ -2,15 +2,18 @@
 import { siteConfig } from "@/config/site";
 import ProductCard from "@/components/ProductCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getProductFilters, getProducts } from "@/data/products.ts";
+import { getProductFilters, getProducts, productDisplayName } from "@/data/products.ts";
 
 const products = await getProducts();
+const socialProduct = products.find(({ sku }) => sku === "AS-0005");
 const { categories: allCategories } = getProductFilters(products);
 ---
 
 <BaseLayout
   title={`Catalogue — ${siteConfig.brandName}`}
   description={`Browse ${siteConfig.brandName} natural stone products for gardens, landscapes, and architectural spaces.`}
+  image={socialProduct?.images[0]?.src}
+  imageAlt={socialProduct ? `Lumavia Stone catalogue featuring ${productDisplayName(socialProduct)}` : undefined}
 >
   <main id="main-content">
     <section class="mx-auto max-w-screen-xl px-6 pb-12 pt-20 md:pb-16 md:pt-28">
