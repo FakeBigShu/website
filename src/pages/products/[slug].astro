@@ -38,7 +38,7 @@ const metaDescription = showShortDescription
 const showBody = hasMeaningfulProductDescription(product, product.entry.body);
 const quoteParams = new URLSearchParams({
   subject: `Request a Quote: ${displayName}`,
-  body: `Product Name: ${displayName}\nSKU: ${product.sku}\nProduct Slug: ${product.slug}\n\nPlease share your quantity, destination, and project requirements:\n`,
+  body: `Product Name: ${displayName}\nSKU: ${product.sku}\nProduct Slug: ${product.slug}\n\nDesired dimensions (cm):\n\nPlease share your quantity, destination, and project requirements:\n`,
 });
 const quoteHref = `mailto:${siteConfig.emails.studio}?${quoteParams.toString().replace(/\+/g, "%20")}`;
 
@@ -48,7 +48,7 @@ const productUrl = pageUrl(
 ).href;
 const specifications = [
   ["Material", confirmedValue(product.material)],
-  ["Dimensions (cm)", confirmedValue(product.dimensions)],
+  ["Size customization", "Custom sizes available upon request."],
   ["Finish", confirmedValue(product.finish)],
   ["Application", confirmedValue(product.application)],
   ["Customization", typeof product.customizable === "boolean" ? (product.customizable ? "Available" : "Not available") : undefined],
@@ -169,9 +169,6 @@ const specifications = [
                 </div>
               ))}
             </dl>}
-            {confirmedValue(product.dimensions) && product.verificationStatus === "Pending Verification" && (
-              <p class="text-xs text-faded">Approximate photo-derived dimensions; pending supplier verification.</p>
-            )}
           </div>
 
           <a
